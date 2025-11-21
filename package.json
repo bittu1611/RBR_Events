@@ -1,0 +1,17 @@
+{
+  "name": "rbr-events",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "react-scroll": "^1.9.3"
+  }
+}

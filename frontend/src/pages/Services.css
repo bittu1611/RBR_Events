@@ -1,0 +1,139 @@
+.services-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #570032, #CB0075, #F51720);
+  color: #fff;
+  padding: 100px 10%;
+  text-align: center;
+}
+
+.services-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #F8D210;
+  margin-bottom: 10px;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.services-subtext {
+  color: #ffeefc;
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+/* === Grid layout === */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 30px;
+}
+
+/* === Card styling === */
+.service-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.9s ease;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(248, 210, 16, 0.3);
+}
+
+.service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #F8D210;
+  animation: float 3s ease-in-out infinite;
+}
+
+.service-card h3 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  color: #ffeefc;
+  font-size: 0.95rem;
+}
+
+/* === Active / Open card === */
+.service-card.active {
+  background: rgba(255, 255, 255, 0.2);
+  /* border-color: #F8D210; */
+  box-shadow: 0 0 20px rgba(248, 210, 16, 0.4);
+  transform: scale(1.05);
+}
+
+.service-details {
+  margin-top: 20px;
+  animation: expand 0.9s ease-in-out;
+}
+
+.service-details img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  transition: all 0.9s ease-in-out;
+}
+
+/* .service-details img:hover {
+  transform: scale(1.05);
+} */
+
+/* === Animations === */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes expand {
+  from { opacity: 0; transform: scaleY(0.8); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services-container {
+    padding: 80px 5%;
+  }
+}
+
+/* === Book Now button === */
+.book-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 25px;
+  background: linear-gradient(90deg, #F8D210, #CB0075);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(248, 210, 16, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.book-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(90deg, #F51720, #CB0075);
+  box-shadow: 0 0 20px rgba(248, 210, 16, 0.6);
+}
