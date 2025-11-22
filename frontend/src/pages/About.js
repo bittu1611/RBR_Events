@@ -61,7 +61,7 @@ export default function About() {
               <div className="team-info">
                 <h3>{member.name}</h3>
                 <p>{member.role}</p>
-                <button>
+                <button className="team-mobile">
                            
                             <a className="ancartag"
                               href="tel:+918502817889"
