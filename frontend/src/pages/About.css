@@ -20,11 +20,11 @@
 .team-mobile{
   border-radius: 10px;
   border: none;
-  background: rgb(134, 0, 83);
+  /* background: rgb(134, 0, 83); */
 }
 .team-mobile :hover{
 box-shadow: 0px 0px 20px 5px rgb(123, 0, 68) ;
-cursor: pointer;
+/* cursor: pointer; */
 }
 
 /* ===== Intro Paragraph ===== */
