@@ -22,10 +22,7 @@
   border: none;
   /* background: rgb(134, 0, 83); */
 }
-.team-mobile :hover{
-box-shadow: 0px 0px 20px 5px rgb(123, 0, 68) ;
-/* cursor: pointer; */
-}
+
 
 /* ===== Intro Paragraph ===== */
 .about-intro {
@@ -43,9 +40,14 @@ box-shadow: 0px 0px 20px 5px rgb(123, 0, 68) ;
 }
 
 .ancartag{
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   background: none;
+}
+
+.ancartag:hover{
+  color: #1557ff;
+
 }
 
 /* ===== Info Cards ===== */
