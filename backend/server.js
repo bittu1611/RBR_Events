@@ -12,10 +12,14 @@ const PORT = process.env.PORT || 5000;
 
 // ⭐ 1) SABSE PEHLE CORS LAGAO
 app.use(cors({
-  origin: "http://localhost:3000",
-  methods: "GET,POST,DELETE,PUT",
-  allowedHeaders: "Content-Type,Authorization"
+  origin: [
+    "http://localhost:3000",
+    "https://rbr-events-pe9d.vercel.app",  // <-- Vercel frontend URL
+  ],
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 
 // ⭐ 2) JSON PARSER PEHLE
 app.use(express.json());
