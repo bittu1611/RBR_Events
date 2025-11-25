@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://rbr-events-pe9d.vercel.app",  // <-- Vercel frontend URL
+    "https://rbr-events.vercel.app",   // <-- FINAL FRONTEND URL
   ],
   methods: ["GET", "POST", "DELETE", "PUT"],
   allowedHeaders: ["Content-Type", "Authorization"]
