@@ -8,7 +8,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.5",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "react-scroll": "^1.9.3",
     "recharts": "^3.3.0"
   },
@@ -16,13 +16,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "proxy": "http://localhost:5000",
-
+ "proxy": "http://localhost:5000",
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
-
-  "browserslist": {
+ "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
