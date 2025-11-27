@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../db");
+const mongoo = require("../db");
 
 // ===============================
-// POST Contact Form (save to DB)
+// POST Contact Form (save to MongoDB)
 // ===============================
 router.post("/", async (req, res) => {
   try {
     const { name, email, phone, serviceType, message, eventDate } = req.body;
 
-    const [result] = await pool.query(
-      "INSERT INTO contacts (name, email, phone, service_type, message, event_date) VALUES (?, ?, ?, ?, ?, ?)",
-      [name, email, phone, serviceType, message, eventDate]
-    );
+    const contact = await mongoo.create('Contact', {
+      name,
+      email,
+      phone,
+      serviceType,
+      message,
+      eventDate: eventDate ? new Date(eventDate) : null
+    });
 
-    res.json({ success: true, id: result.insertId });
+    res.json({ success: true, id: contact._id });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Database insert error" });
@@ -33,13 +37,14 @@ router.get("/", async (req, res) => {
       return res.status(401).json({ error: "Invalid admin password" });
     }
 
-    const [rows] = await pool.query("SELECT * FROM contacts ORDER BY id DESC");
+    const contacts = await mongoo.find('Contact', {}, {
+      sort: { createdAt: -1 }
+    });
 
-    res.json(rows);
+    res.json(contacts);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Failed to fetch contacts" });
   }
-});
-
-module.exports = router;
+}); 
+  module.exports = router;

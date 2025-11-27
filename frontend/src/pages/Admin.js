@@ -17,6 +17,7 @@ export default function Admin() {
     try {
       const res = await getContacts(pass);
       setContacts(res.data);
+       console.log("CONTACT API RESPONSE:", res.data); 
     } catch (err) {
       console.error(err);
       alert('Failed to fetch. Check admin password.');
@@ -148,10 +149,10 @@ export default function Admin() {
                   <td>{c.name}</td>
                   <td>{c.phone}</td>
                   <td>{c.email}</td>
-                  <td>{c.service_type}</td>
+                  <td>{c.serviceType}</td>
                   <td>{c.message}</td>
                   <td>{c.event_date}</td>
-                  <td>{c.created_at}</td>
+                  <td>{c.updatedAt}</td>
                 </tr>
               ))}
             </tbody>
@@ -208,21 +209,33 @@ export default function Admin() {
       {loading ? <p>Loading images...</p> : null}
 
       {/* Grid */}
-      <div className="gallery-grid">
-        {visibleImages.map((img) => (
-          <div className="gallery-card" key={img.id || img.image_url}>
-            <img
-              src={img.image_url || img.url || img.imageUrl || img.url}
-              alt={img.category || "event"}
-              onClick={() => setSelectedImage(img.image_url || img.url || img.imageUrl || img.url)}
-            />
+<div className="gallery-grid">
+  {visibleImages.map((img) => {
+    const newImgUrl = img.image_url || img.url || img.imageUrl
+      ? `https://rbr-events-ofdj.vercel.app${img.image_url || img.url || img.imageUrl}`
+      : "";
 
-            {isAdmin && img.id && (
-              <button className="delete-btn" onClick={() => handleDelete(img.id)}>✕</button>
-            )}
-          </div>
-        ))}
+    return (
+      <div className="gallery-card" key={img.id || img.image_url}>
+        <img
+          src={newImgUrl}
+          alt={img.category || "event"}
+          onClick={() => setSelectedImage(newImgUrl)}
+        />
+
+        {isAdmin && img.id && (
+          <button
+            className="delete-btn"
+            onClick={() => handleDelete(img.id)}
+          >
+            ✕
+          </button>
+        )}
       </div>
+    );
+  })}
+</div>
+
 
       {/* Show more */}
       {filtered.length > 6 && (

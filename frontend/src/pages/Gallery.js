@@ -65,8 +65,17 @@ export default function Gallery() {
       // if backend returns { id, image_url, category, created_at } push that.
       const newItem =
         res.data && res.data.id
-          ? { id: res.data.id, image_url: res.data.image_url, category: res.data.category, created_at: res.data.created_at }
-          : { id: Date.now(), image_url: res.data.url || res.data.image_url || "", category: res.data.category || category };
+          ? {
+              id: res.data.id,
+              image_url: res.data.image_url,
+              category: res.data.category,
+              created_at: res.data.created_at,
+            }
+          : {
+              id: Date.now(),
+              image_url: res.data.url || res.data.image_url || "",
+              category: res.data.category || category,
+            };
       setImages((p) => [newItem, ...p]);
       setFile(null);
     } catch (err) {
@@ -88,13 +97,20 @@ export default function Gallery() {
   };
 
   // filtering & visible set
-  const filtered = filter === "All" ? images : images.filter((i) => (i.category || i.category === "") ? i.category === filter : true);
+  const filtered =
+    filter === "All"
+      ? images
+      : images.filter((i) =>
+          i.category || i.category === "" ? i.category === filter : true
+        );
   const visibleImages = showAll ? filtered : filtered.slice(0, 6);
 
   return (
     <div className="gallery-container">
       <h2 className="gallery-title">📸 Our Event Gallery</h2>
-      <p className="gallery-subtext">Beautiful moments captured from our events.</p>
+      <p className="gallery-subtext">
+        Beautiful moments captured from our events.
+      </p>
 
       {/* Admin login */}
       {/* {!isAdmin && (
@@ -113,11 +129,18 @@ export default function Gallery() {
       {isAdmin && (
         <form className="upload-form" onSubmit={handleUpload}>
           <label className="upload-label">
-            <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
             Choose Image
           </label>
 
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
             <option>Wedding</option>
             <option>Birthday</option>
             <option>Corporate</option>
@@ -125,13 +148,22 @@ export default function Gallery() {
             <option>Other</option>
           </select>
 
-          <button type="submit" className="upload-btn">Upload</button>
+          <button type="submit" className="upload-btn">
+            Upload
+          </button>
         </form>
       )}
 
       {/* Filters */}
       <div className="filter-buttons">
-        {["All", "Wedding", "Birthday", "Corporate", "Anniversary", "Other"].map((cat) => (
+        {[
+          "All",
+          "Wedding",
+          "Birthday",
+          "Corporate",
+          "Anniversary",
+          "Other",
+        ].map((cat) => (
           <button
             key={cat}
             className={`filter-btn ${filter === cat ? "active" : ""}`}
@@ -146,26 +178,45 @@ export default function Gallery() {
 
       {/* Grid */}
       <div className="gallery-grid">
-        {visibleImages.map((img) => (
-          <div className="gallery-card" key={img.id || img.image_url}>
-            <img
-              src={img.image_url || img.url || img.imageUrl || img.url}
-              alt={img.category || "event"}
-              onClick={() => setSelectedImage(img.image_url || img.url || img.imageUrl || img.url)}
-            />
+        {visibleImages.map((img) => {
+          const newImgUrl =
+            img.image_url || img.url || img.imageUrl
+              ? `https://rbr-events-ofdj.vercel.app${
+                  img.image_url || img.url || img.imageUrl
+                }`
+              : "";
 
-            {isAdmin && img.id && (
-              <button className="delete-btn" onClick={() => handleDelete(img.id)}>✕</button>
-            )}
-          </div>
-        ))}
+          return (
+            <div className="gallery-card" key={img.id || img.image_url}>
+              <img
+                src={newImgUrl}
+                alt={img.category || "event"}
+                onClick={() => setSelectedImage(newImgUrl)}
+              />
+
+              {isAdmin && img.id && (
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(img.id)}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Show more */}
       {filtered.length > 6 && (
         <div className="show-more-box">
-          <button className="show-more-btn" onClick={() => setShowAll(!showAll)}>
-            {showAll ? "Show Less ▲" : `Show More ▼ (${filtered.length - 6} more)`}
+          <button
+            className="show-more-btn"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll
+              ? "Show Less ▲"
+              : `Show More ▼ (${filtered.length - 6} more)`}
           </button>
         </div>
       )}
@@ -173,9 +224,17 @@ export default function Gallery() {
       {/* Lightbox */}
       {selectedImage && (
         <div className="lightbox" onClick={() => setSelectedImage(null)}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img src={selectedImage} alt="preview" />
-            <button className="close-btn" onClick={() => setSelectedImage(null)}>✕</button>
+            <button
+              className="close-btn"
+              onClick={() => setSelectedImage(null)}
+            >
+              ✕
+            </button>
           </div>
         </div>
       )}
