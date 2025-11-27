@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-
-// Import Easy-Mongoo instead of MySQL
 const mongoo = require('easy-mongoo');
 
 const contactsRouter = require('./routes/contacts');
@@ -13,13 +11,15 @@ const galleryRoutes = require('./routes/gallery');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Database connection with Easy-Mongoo
+// ====================
+// CONNECT DATABASE + CREATE MODELS
+// ====================
 const connectDB = async () => {
   try {
     await mongoo.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rbr_events');
     console.log('Connected to MongoDB with Easy-Mongoo');
-    
-    // Create models
+
+    // Register models BEFORE routes load
     mongoo.model('Contact', {
       name: 'string!',
       email: 'email',
@@ -41,39 +41,30 @@ const connectDB = async () => {
   }
 };
 
-// ⭐ 1) CORS
+// Middlewares
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://rbr-events.vercel.app",
-  ],
+  origin: ["http://localhost:3000", "https://rbr-events.vercel.app"],
   methods: ["GET", "POST", "DELETE", "PUT"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// ⭐ 2) JSON PARSER
 app.use(express.json());
-
-// ⭐ 3) STATIC FOLDERS
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ⭐ 4) ROUTES
+// Routes
 app.use('/api/contacts', contactsRouter);
 app.use('/api/uploads', uploadsRouter);
 app.use('/api/gallery', galleryRoutes);
 
-// Test route
+// Test
 app.get('/', (req, res) => {
-  res.send({ 
-    status: 'RBR Events backend running',
-    database: 'MongoDB with Easy-Mongoo'
-  });
+  res.send({ status: 'RBR Events backend running', database: 'MongoDB with Easy-Mongoo' });
 });
 
-// Start server
-app.listen(PORT, async () => {
+// START SERVER AFTER DB
+(async () => {
   await connectDB();
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-
-module.exports = app;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+})();
