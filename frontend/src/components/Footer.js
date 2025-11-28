@@ -35,10 +35,7 @@ export default function Footer() {
             <Link to="about" smooth={true} duration={600}>about</Link>
             <Link to="contact" smooth={true} duration={600}>contact</Link>
             
-            
-            <li><a href="/gallery">Gallery</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
+          
           </ul>
         </div>
 

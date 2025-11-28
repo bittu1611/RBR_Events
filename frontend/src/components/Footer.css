@@ -34,6 +34,9 @@
 /* Quick Links */
 .footer-section.links ul {
   padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .footer-section.links li a {
@@ -65,8 +68,10 @@
 /* Social Icons */
 .social-icons {
   display: flex;
-  gap: 15px;
+  justify-content: center;
+  gap: 25px;
   margin-top: 10px;
+  /* margin-left: -20px; */
 }
 
 .social-icons a {
